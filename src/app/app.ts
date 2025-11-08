@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RfidStatusComponent } from './components/rfid-status/rfid-status';
+import { RfidLogsComponent } from './components/rfid-logs/rfid-logs';
+import { DataService } from './services/data.service'; // Updated service
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, RfidStatusComponent, RfidLogsComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('Ace-softwares');
+export class AppComponent {
+  title = 'Ace-softwares';
+  public dataService = inject(DataService); // Add this to use in template
 }

@@ -1,1 +1,40 @@
-<p>rfid-logs works!</p>
+<div class="logs-card">
+  <h2 class="card-title">RFID Logs</h2>
+  
+  <div class="logs-controls">
+    <div class="total-logs">Total Logs: {{ rfidLogs().length }}</div>
+    <div class="auto-refresh">Auto-refresh: Every 5s</div>
+    <div class="last-update">Last Update: {{ lastUpdate() }}</div>
+  </div>
+  
+  <div class="logs-table">
+    <div class="table-header">
+      <div class="col-rfid">RFID Tag</div>
+      <div class="col-status">Status</div>
+      <div class="col-timestamp">Timestamp</div>
+    </div>
+    
+    <div class="table-body">
+      <div *ngIf="isLoading()" class="loading-row">
+        <td colspan="3">🔄 Loading logs from database...</td>
+      </div>
+      
+      <div *ngFor="let log of rfidLogs()" class="table-row">
+        <div class="col-rfid">{{ log.rfid_tag }}</div>
+        <div class="col-status">
+          <span class="status-badge" 
+                [class.active]="log.status === 'ACTIVE'"
+                [class.inactive]="log.status === 'INACTIVE'"
+                [class.notfound]="log.status === 'NOT_FOUND'">
+            {{ log.status === 'ACTIVE' ? '1' : (log.status === 'INACTIVE' ? '0' : 'Not Registered') }}
+          </span>
+        </div>
+        <div class="col-timestamp">{{ log.timestamp }}</div>
+      </div>
+      
+      <div *ngIf="!isLoading() && rfidLogs().length === 0" class="no-data">
+        📭 No RFID scan logs in database
+      </div>
+    </div>
+  </div>
+</div>

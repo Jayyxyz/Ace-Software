@@ -1,1 +1,46 @@
-<p>rfid-status works!</p>
+<div class="status-card">
+  <h2 class="card-title">RFID Status</h2>
+  
+  <div class="connection-info">
+    <div class="connection-status">
+      <span class="status-dot connected"></span>
+      Server: {{ dataService.serverIpDisplay() }}
+    </div>
+    <div class="last-update">
+      Updated: {{ lastUpdate() }}
+    </div>
+    <button class="refresh-btn" (click)="dataService.refreshData()" [disabled]="isLoading()">
+      {{ isLoading() ? 'Loading...' : 'Refresh' }}
+    </button>
+  </div>
+  
+  <div class="status-list">
+    <div *ngIf="isLoading()" class="loading">
+      🔄 Loading data from database...
+    </div>
+    
+    <div *ngFor="let status of rfidStatus()" class="status-item">
+      <div class="status-info">
+        <div class="rfid-tag">{{ status.rfid_tag }}</div>
+        <div class="user-name">{{ status.user_name }}</div>
+        <div class="last-scan">Last Scan: {{ status.last_scan || 'Never' }}</div>
+      </div>
+      
+      <!-- ✅ TOGGLE SWITCH -->
+      <div class="status-indicator">
+        <label class="toggle-switch">
+          <input type="checkbox" 
+                 [checked]="status.is_active === 1"
+                 (change)="onToggleClick(status.rfid_tag, status.is_active)"
+                 [disabled]="isLoading()">
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">{{ status.is_active === 1 ? 'ACTIVE' : 'INACTIVE' }}</span>
+        </label>
+      </div>
+    </div>
+    
+    <div *ngIf="!isLoading() && rfidStatus().length === 0" class="no-data">
+      📭 No registered RFID users in database
+    </div>
+  </div>
+</div>

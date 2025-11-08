@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-rfid-status',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './rfid-status.html',
-  styleUrl: './rfid-status.scss',
+  styleUrl: './rfid-status.scss'
 })
-export class RfidStatus {
+export class RfidStatusComponent {
+  public dataService = inject(DataService);
+  
+  rfidStatus = this.dataService.rfidStatus;
+  lastUpdate = this.dataService.lastUpdate;
+  isLoading = this.dataService.isLoading;
 
+  onToggleClick(rfidTag: string, currentStatus: number) {
+    this.dataService.toggleRfidStatus(rfidTag, currentStatus);
+  }
 }
