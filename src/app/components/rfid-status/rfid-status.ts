@@ -16,7 +16,5 @@ export class RfidStatusComponent {
   lastUpdate = this.dataService.lastUpdate;
   isLoading = this.dataService.isLoading;
 
-  onToggleClick(rfidTag: string, currentStatus: number) {
-    this.dataService.toggleRfidStatus(rfidTag, currentStatus);
-  }
+  // ❌ REMOVED: onToggleClick function - no interactions needed
 }

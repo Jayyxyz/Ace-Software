@@ -107,7 +107,7 @@
           display: flex;
           align-items: center;
           gap: 10px;
-          cursor: pointer;
+          cursor: default; // ❌ Changed from pointer to default
           
           input {
             display: none;
@@ -117,9 +117,11 @@
             position: relative;
             width: 50px;
             height: 24px;
-            background: #dc3545; /* Red for inactive */
+            background: #dc3545; /* Red for inactive/0 */
             border-radius: 34px;
             transition: all 0.3s ease;
+            cursor: default; // ❌ Not clickable
+            pointer-events: none; // ❌ Prevent any interactions
             
             &::before {
               content: "";
@@ -132,26 +134,33 @@
               border-radius: 50%;
               transition: all 0.3s ease;
             }
+            
+            // ✅ ACTIVE STATE (1)
+            &.active {
+              background: #28a745; // Green for active/1
+              
+              &::before {
+                transform: translateX(26px);
+              }
+            }
           }
           
-          input:checked + .toggle-slider {
-            background: #28a745; /* Green for active */
-          }
-          
-          input:checked + .toggle-slider::before {
-            transform: translateX(26px);
-          }
-          
-          input:disabled + .toggle-slider {
-            opacity: 0.6;
-            cursor: not-allowed;
-          }
+          // ❌ REMOVED: input:checked styles since we're using CSS classes instead
           
           .toggle-label {
             font-weight: bold;
             min-width: 60px;
             color: #333;
+            cursor: default; // ❌ Not clickable
           }
+        }
+        
+        // ✅ Display-only visual enhancements
+        .toggle-display-only {
+          padding: 8px 12px;
+          border: 2px solid #e0e0e0;
+          border-radius: 8px;
+          background: #fafafa;
         }
       }
     }

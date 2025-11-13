@@ -26,16 +26,11 @@
         <div class="last-scan">Last Scan: {{ status.last_scan || 'Never' }}</div>
       </div>
       
-      <!-- ✅ TOGGLE SWITCH -->
+      <!-- ✅ DISPLAY-ONLY TOGGLE SWITCH (NOT CLICKABLE) -->
       <div class="status-indicator">
-        <label class="toggle-switch">
-          <input type="checkbox" 
-                 [checked]="status.is_active === 1"
-                 (change)="onToggleClick(status.rfid_tag, status.is_active)"
-                 [disabled]="isLoading()">
-          <span class="toggle-slider"></span>
-          <span class="toggle-label">{{ status.is_active === 1 ? 'ACTIVE' : 'INACTIVE' }}</span>
-        </label>
+        <div class="toggle-switch toggle-display-only">
+          <div class="toggle-slider" [class.active]="status.is_active === 1 || status.is_active === '1' || status.status === 'ACTIVE'"></div>
+        </div>
       </div>
     </div>
     

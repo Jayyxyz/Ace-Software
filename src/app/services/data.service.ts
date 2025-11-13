@@ -8,7 +8,7 @@ import { interval } from 'rxjs';
 export class DataService {
   private http = inject(HttpClient);
   
-  private readonly serverIp = '192.168.100.5';
+  private readonly serverIp = '10.187.5.120';
   private readonly apiBaseUrl = `http://${this.serverIp}/rfid_system`;
   
   public rfidLogs = signal<any[]>([]);
@@ -17,44 +17,26 @@ export class DataService {
   public isLoading = signal<boolean>(true);
   public serverIpDisplay = signal<string>(this.serverIp);
 
-  // Track last data state to detect changes
-  private lastLogsCount = 0;
-
   constructor() {
     this.loadDataFromDatabase(); // Load once on startup
     
-    // ✅ REAL-TIME: Check for new RFID scans every 3 seconds
+    // ✅ SIMPLE AUTO-REFRESH: Refresh all data every 3 seconds
     interval(3000).subscribe(() => {
-      this.checkForNewScans();
-    });
-  }
-
-  // Check if new RFID scans happened (lightweight check)
-  private checkForNewScans() {
-    this.http.get<any[]>(`${this.apiBaseUrl}/get_logs.php`).subscribe({
-      next: (logs) => {
-        // If log count increased, there are new scans
-        if (logs.length > this.lastLogsCount) {
-          console.log('🆕 New RFID scans detected!');
-          this.loadDataFromDatabase(); // Refresh everything
-        }
-        this.lastLogsCount = logs.length;
-      },
-      error: (error) => {
-        console.error('❌ Scan check failed:', error);
-      }
+      console.log('🔄 Auto-refreshing data...');
+      this.loadDataFromDatabase();
     });
   }
 
   private loadDataFromDatabase() {
     this.isLoading.set(true);
     
+    // Load RFID logs
     this.http.get<any[]>(`${this.apiBaseUrl}/get_logs.php`).subscribe({
       next: (logs) => {
         this.rfidLogs.set(logs);
-        this.lastLogsCount = logs.length; // Update count
         this.lastUpdate.set(new Date().toLocaleTimeString());
         this.isLoading.set(false);
+        console.log('✅ Logs loaded:', logs.length, 'items');
       },
       error: (error) => {
         console.error('❌ Failed to load logs:', error);
@@ -63,9 +45,11 @@ export class DataService {
       }
     });
 
+    // Load RFID status
     this.http.get<any[]>(`${this.apiBaseUrl}/get_status.php`).subscribe({
       next: (status) => {
         this.rfidStatus.set(status);
+        console.log('✅ Status loaded:', status.length, 'items');
       },
       error: (error) => {
         console.error('❌ Failed to load status:', error);
@@ -74,38 +58,10 @@ export class DataService {
     });
   }
 
-  toggleRfidStatus(rfidTag: string, currentStatus: number) {
-    const newStatus = currentStatus === 1 ? 0 : 1;
-    
-    console.log(`🔄 Toggling ${rfidTag}: ${currentStatus} → ${newStatus}`);
-    
-    this.rfidStatus.update(statuses => {
-      return statuses.map(status => {
-        if (status.rfid_tag === rfidTag) {
-          return {
-            ...status,
-            is_active: newStatus,
-            last_scan: new Date().toLocaleString()
-          };
-        }
-        return status;
-      });
-    });
-
-    this.http.post(`${this.apiBaseUrl}/update_status.php`, {
-      rfid_tag: rfidTag,
-      new_status: newStatus
-    }).subscribe({
-      next: (response: any) => {
-        console.log('✅ Database updated successfully');
-        
-        this.loadDataFromDatabase();
-      },
-      error: (error) => {
-        console.error('❌ Database update failed:', error);
-      }
-    });
-  }
+  // ❌ REMOVE THIS FUNCTION - no status changing allowed
+  // toggleRfidStatus(rfidTag: string, currentStatus: number) {
+  //   // Remove this entire function
+  // }
 
   public refreshData() {
     this.loadDataFromDatabase();

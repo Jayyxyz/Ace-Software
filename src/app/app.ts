@@ -13,5 +13,5 @@ import { DataService } from './services/data.service'; // Updated service
 })
 export class AppComponent {
   title = 'Ace-softwares';
-  public dataService = inject(DataService); // Add this to use in template
+  public dataService = inject(DataService); 
 }
