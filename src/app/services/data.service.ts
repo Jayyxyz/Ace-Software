@@ -8,7 +8,7 @@ import { interval } from 'rxjs';
 export class DataService {
   private http = inject(HttpClient);
   
-  private readonly serverIp = '10.187.5.120';
+  private readonly serverIp = '192.168.100.5';
   private readonly apiBaseUrl = `http://${this.serverIp}/rfid_system`;
   
   public rfidLogs = signal<any[]>([]);
@@ -21,7 +21,7 @@ export class DataService {
     this.loadDataFromDatabase(); // Load once on startup
     
     // ✅ SIMPLE AUTO-REFRESH: Refresh all data every 3 seconds
-    interval(3000).subscribe(() => {
+    interval(1000).subscribe(() => {
       console.log('🔄 Auto-refreshing data...');
       this.loadDataFromDatabase();
     });
@@ -57,12 +57,6 @@ export class DataService {
       }
     });
   }
-
-  // ❌ REMOVE THIS FUNCTION - no status changing allowed
-  // toggleRfidStatus(rfidTag: string, currentStatus: number) {
-  //   // Remove this entire function
-  // }
-
   public refreshData() {
     this.loadDataFromDatabase();
   }

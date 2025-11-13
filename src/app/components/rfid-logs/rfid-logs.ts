@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
+import { formatDateTime } from '../utils/date-time';
 
 @Component({
   selector: 'app-rfid-logs',
@@ -15,4 +16,5 @@ export class RfidLogsComponent {
   rfidLogs = this.dataService.rfidLogs;
   isLoading = this.dataService.isLoading;
   lastUpdate = this.dataService.lastUpdate;
+  formatDateTime = formatDateTime;
 }
