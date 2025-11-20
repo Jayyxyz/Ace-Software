@@ -1,11 +1,10 @@
 <div class="logs-card">
-  <h2 class="card-title">RFID Logs</h2>
   
   <div class="logs-table">
     <div class="table-header">
-      <div class="col-rfid">RFID Tag</div>
+      <div class="col-rfid">RFID</div>
       <div class="col-status">Status</div>
-      <div class="col-timestamp">Timestamp</div>
+      <div class="col-timestamp">Date & Time</div>
     </div>
     
     <div class="table-body">
@@ -15,8 +14,8 @@
           <span class="status-badge" 
                 [class.active]="log.status === 'ACTIVE'"
                 [class.inactive]="log.status === 'INACTIVE'"
-                [class.notfound]="log.status === 'NOT_FOUND'">
-            {{ log.status === 'ACTIVE' ? '1' : (log.status === 'INACTIVE' ? '0' : 'Not Registered') }}
+                [class.notfound]="log.status === 'FRID NOT FOUND'">
+            {{ log.status === 'ACTIVE' ? '1' : (log.status === 'INACTIVE' ? '0' : 'FRID NOT FOUND') }}
           </span>
         </div>
         <div class="col-timestamp">{{ formatDateTime(log.timestamp) }}</div>

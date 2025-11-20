@@ -1,43 +1,26 @@
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$light-gray: #f8f9fa;
+$medium-gray: #e0e0e0;
+$dark-gray: #343a40;
+$white: #ffffff;
+
 .logs-card {
-  background: white;
+  background: $white;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
-  .card-title {
-    margin: 0 0 20px 0;
-    color: #333;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-  
-  .logs-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 6px;
-    flex-wrap: wrap;
-    gap: 10px;
-    
-    .total-logs, .auto-refresh, .last-update {
-      font-weight: bold;
-      color: #333;
-    }
-  }
-  
   .logs-table {
-    border: 1px solid #e0e0e0;
+    border: 1px solid $medium-gray;
     border-radius: 8px;
     overflow: hidden;
     
     .table-header {
       display: grid;
       grid-template-columns: 2fr 1fr 2fr;
-      background: #343a40;
-      color: white;
+      background: $dark-gray;
+      color: $white;
       font-weight: bold;
       padding: 15px;
     }
@@ -57,7 +40,7 @@
         display: grid;
         grid-template-columns: 2fr 1fr 2fr;
         padding: 12px 15px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid $medium-gray;
         align-items: center;
         
         &:last-child {
@@ -65,12 +48,13 @@
         }
         
         &:nth-child(even) {
-          background: #f8f9fa;
+          background: $light-gray;
         }
         
         .col-rfid {
           font-family: monospace;
           font-weight: bold;
+          color: $secondary-color;
         }
         
         .status-badge {
@@ -95,6 +79,11 @@
             color: #856404;
           }
         }
+        
+        .col-timestamp {
+          color: $dark-gray;
+          font-size: 0.9rem;
+        }
       }
       
       .no-data {
@@ -113,14 +102,46 @@
     .logs-table {
       .table-header,
       .table-row {
-        grid-template-columns: 1fr;
-        gap: 8px;
+        grid-template-rows: 1fr;
+        font-size: 15px;
         text-align: center;
       }
       
-      .col-rfid::before { content: "RFID: "; font-weight: bold; }
-      .col-status::before { content: "Status: "; font-weight: bold; }
-      .col-timestamp::before { content: "Time: "; font-weight: bold; }
+      .table-header {
+        grid-template-rows: repeat(3, auto);
+      }
+      
+      .table-row {
+        grid-template-rows: repeat(3, auto);
+        
+        .col-rfid::before { 
+          content: "RFID: ";
+          font-weight: bold;
+          color: $primary-color;
+        }
+        .col-status::before { 
+          content: "Status: ";
+          font-weight: bold;
+          color: $primary-color;
+        }
+        .col-timestamp::before { 
+          content: "Time: ";
+          font-weight: bold;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 426px) {
+  .logs-card {
+    .logs-table {
+      .table-header,
+      .table-row {
+        font-size: 12px;
+        text-align: center;
+      }
     }
   }
 }
