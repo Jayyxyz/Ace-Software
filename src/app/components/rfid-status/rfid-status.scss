@@ -1,6 +1,6 @@
 $primary-color: #2c3e50;
 $success-color: #27ae60;
-$unsuccesful-color: #e74c3c;
+$unsuccessful-color: #e74c3c;
 $light-gray: #f8f9fa;
 $medium-gray: #e0e0e0;
 $white: #ffffff;
@@ -15,59 +15,12 @@ $white: #ffffff;
     margin: 0 0 20px 0;
     color: $primary-color;
     font-size: 1.5rem;
-  }
-  
-  .connection-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    background: $light-gray;
-    border-radius: 6px;
-    flex-wrap: wrap;
-    gap: 10px;
-    
-    .connection-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        
-        &.connected {
-          background: $success-color;
-        }
-        
-        &.disconnected {
-          background: $unsuccesful-color;
-        }
-      }
-      
-      .status-text {
-        font-weight: 600;
-        color: $primary-color;
-      }
-    }
-    
-    .last-update {
-      font-size: 0.9rem;
-      color: #666;
-    }
+    text-align: center;
   }
   
   .status-list {
     max-height: 400px;
     overflow-y: auto;
-    
-    .loading {
-      text-align: center;
-      padding: 20px;
-      color: #666;
-    }
     
     .status-item {
       display: flex;
@@ -87,16 +40,7 @@ $white: #ffffff;
           color: $primary-color;
           font-size: 1.1rem;
           font-family: monospace;
-        }
-        
-        .user-name {
-          color: #666;
-          margin: 5px 0;
-        }
-        
-        .last-scan {
-          font-size: 0.8rem;
-          color: #888;
+          word-break: break-all;
         }
       }
       
@@ -107,15 +51,11 @@ $white: #ffffff;
           gap: 10px;
           cursor: default;
           
-          input {
-            display: none;
-          }
-          
           .toggle-slider {
             position: relative;
             width: 50px;
             height: 24px;
-            background: $unsuccesful-color;
+            background: $unsuccessful-color;
             border-radius: 34px;
             transition: all 0.3s ease;
             cursor: default;
@@ -141,13 +81,6 @@ $white: #ffffff;
               }
             }
           }
-          
-          .toggle-label {
-            font-weight: bold;
-            min-width: 60px;
-            color: $primary-color;
-            cursor: default;
-          }
         }
       }
     }
@@ -155,30 +88,58 @@ $white: #ffffff;
     .no-data {
       text-align: center;
       color: #666;
-      padding: 20px;
+      padding: 40px 20px;
+      font-size: 1rem;
+      
+      &::before {
+        content: "📭";
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 10px;
+      }
     }
   }
 }
 
-// Mobile Responsive
-@media (max-width: 76px) {
+
+
+// Small Mobile Responsive
+@media (max-width: 400px) {
   .status-card {
+    padding: 10px;
+    
+    .card-title {
+      font-size: 0.8rem;
+    }
+    
     .status-list {
       .status-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        padding: 12px;
+        
+        .status-info {
+          .rfid-tag {
+            font-size: 1rem;
+          }
+        }
         
         .status-indicator {
-          align-self: flex-end;
+          .toggle-switch {
+            .toggle-slider {
+              width: 45px;
+              height: 22px;
+              
+              &::before {
+                height: 18px;
+                width: 18px;
+              }
+              
+              &.active::before {
+                transform: translateX(23px);
+              }
+            }
+          }
         }
       }
     }
-    
-    .connection-info {
-      flex-direction: column;
-      align-items: flex-start;
-    }
   }
 }
-
