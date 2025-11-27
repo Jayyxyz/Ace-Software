@@ -2,64 +2,6 @@
   <h2 class="card-title">RFID</h2>
   
   <div class="status-list">
-    <!-- Static Data -->
-    <div class="status-item">
-      <div class="status-info">
-        <div class="rfid-tag">ABC123XYZ456789</div>
-      </div>
-      <div class="status-indicator">
-        <div class="toggle-switch toggle-display-only">
-          <div class="toggle-slider active"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="status-item">
-      <div class="status-info">
-        <div class="rfid-tag">DEF456UVW123789</div>
-      </div>
-      <div class="status-indicator">
-        <div class="toggle-switch toggle-display-only">
-          <div class="toggle-slider"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="status-item">
-      <div class="status-info">
-        <div class="rfid-tag">GHI789RST456123</div>
-      </div>
-      <div class="status-indicator">
-        <div class="toggle-switch toggle-display-only">
-          <div class="toggle-slider active"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="status-item">
-      <div class="status-info">
-        <div class="rfid-tag">JKL012MNO345678</div>
-      </div>
-      <div class="status-indicator">
-        <div class="toggle-switch toggle-display-only">
-          <div class="toggle-slider"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="status-item">
-      <div class="status-info">
-        <div class="rfid-tag">MNO345PQR678901</div>
-      </div>
-      <div class="status-indicator">
-        <div class="toggle-switch toggle-display-only">
-          <div class="toggle-slider active"></div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Dynamic Data (commented out for now) -->
-    <!--
     <div *ngFor="let status of rfidStatus()" class="status-item">
       <div class="status-info">
         <div class="rfid-tag">{{ status.rfid_tag }}</div>
@@ -75,6 +17,5 @@
     <div *ngIf="!isLoading() && rfidStatus().length === 0" class="no-data">
       📭 No registered RFID users in database
     </div>
-    -->
   </div>
 </div>
