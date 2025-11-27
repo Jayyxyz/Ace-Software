@@ -1,5 +1,4 @@
 <div class="logs-card">
-  
   <div class="logs-table">
     <div class="table-header">
       <div class="col-rfid">RFID</div>
@@ -8,9 +7,81 @@
     </div>
     
     <div class="table-body">
-      <div *ngFor="let log of rfidLogs()" class="table-row">
-        <div class="col-rfid">{{ log.rfid_tag }}</div>
-        <div class="col-status">
+      <!-- Static Data -->
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">1</div>
+          <div class="rfid-value">ABC123XYZ456789</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge active">1</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:30:25</div>
+      </div>
+      
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">2</div>
+          <div class="rfid-value">DEF456UVW123789</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge inactive">0</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:28:12</div>
+      </div>
+      
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">3</div>
+          <div class="rfid-value">GHI789RST456123</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge active">1</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:25:45</div>
+      </div>
+      
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">4</div>
+          <div class="rfid-value">JKL012MNO345678</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge notfound">FRID NOT FOUND</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:22:33</div>
+      </div>
+      
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">5</div>
+          <div class="rfid-value">MNO345PQR678901</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge active">1</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:20:15</div>
+      </div>
+      
+      <div class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">6</div>
+          <div class="rfid-value">STU901VWX234567</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge inactive">0</span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">2024-01-15 14:18:09</div>
+      </div>
+      
+      <!-- Dynamic Data (commented out for now) -->
+      <!--
+      <div *ngFor="let log of rfidLogs(); let i = index" class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">{{ i + 1 }}</div>
+          <div class="rfid-value">{{ log.rfid_tag }}</div>
+        </div>
+        <div class="col-status" data-label="Status">
           <span class="status-badge" 
                 [class.active]="log.status === 'ACTIVE'"
                 [class.inactive]="log.status === 'INACTIVE'"
@@ -18,12 +89,13 @@
             {{ log.status === 'ACTIVE' ? '1' : (log.status === 'INACTIVE' ? '0' : 'FRID NOT FOUND') }}
           </span>
         </div>
-        <div class="col-timestamp">{{ formatDateTime(log.timestamp) }}</div>
+        <div class="col-timestamp" data-label="Date & Time">{{ formatDateTime(log.timestamp) }}</div>
       </div>
       
       <div *ngIf="!isLoading() && rfidLogs().length === 0" class="no-data">
         📭 No RFID scan logs in database
       </div>
+      -->
     </div>
   </div>
 </div>
