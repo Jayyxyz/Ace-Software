@@ -23,7 +23,7 @@
         <div class="col-timestamp" data-label="Date & Time">{{ formatDateTime(log.timestamp) }}</div>
       </div>
       
-      <div *ngIf="!isLoading() && rfidLogs().length === 0" class="no-data">
+      <div *ngIf="rfidLogs().length === 0" class="no-data">
         📭 No RFID scan logs in database
       </div>
      

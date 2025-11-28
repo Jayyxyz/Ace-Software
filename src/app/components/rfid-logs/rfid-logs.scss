@@ -67,8 +67,8 @@ $black: #000;
         .col-rfid {
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 12px;
+          justify-content: flex-start;
+          gap: 92px;
           padding: 8px;
           
           .rfid-number {

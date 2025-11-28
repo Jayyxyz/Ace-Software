@@ -8,7 +8,7 @@ import { interval } from 'rxjs';
 export class DataService {
   private http = inject(HttpClient);
   
-  private readonly serverIp = '192.168.100.5';
+  private readonly serverIp = '10.89.255.120';
   private readonly apiBaseUrl = `http://${this.serverIp}/rfid_system`;
   
   public rfidLogs = signal<any[]>([]);
