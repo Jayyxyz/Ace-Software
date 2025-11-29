@@ -199,14 +199,11 @@ $black: #000;
     margin: 10px;
     
     .logs-table {
-      .table-header {
-        display: none;
-      }
       
       .table-body {
         .table-row {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
           padding: 15px;
           gap: 12px;
           border-bottom: 1px solid $medium-gray;
@@ -229,7 +226,6 @@ $black: #000;
             text-align: center;
             
             &::before {
-              content: attr(data-label);
               font-weight: bold;
               color: $black;
               margin-bottom: 8px;
