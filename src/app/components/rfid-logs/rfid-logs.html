@@ -1,1 +1,32 @@
-<p>rfid-logs works!</p>
+<div class="logs-card">
+  <div class="logs-table">
+    <div class="table-header">
+      <div class="col-rfid">RFID</div>
+      <div class="col-status">Status</div>
+      <div class="col-timestamp">Date & Time</div>
+    </div>
+    
+    <div class="table-body">
+      <div *ngFor="let log of rfidLogs(); let i = index" class="table-row">
+        <div class="col-rfid" data-label="RFID">
+          <div class="rfid-number">{{ i + 1 }}</div>
+          <div class="rfid-value">{{ log.rfid_tag }}</div>
+        </div>
+        <div class="col-status" data-label="Status">
+          <span class="status-badge" 
+                [class.active]="log.status === 'ACTIVE'"
+                [class.inactive]="log.status === 'INACTIVE'"
+                [class.notfound]="log.status === 'RFID NOT FOUND'">
+            {{ log.status === 'ACTIVE' ? '1' : (log.status === 'INACTIVE' ? '0' : 'RFID NOT FOUND') }}
+          </span>
+        </div>
+        <div class="col-timestamp" data-label="Date & Time">{{ formatDateTime(log.timestamp) }}</div>
+      </div>
+      
+      <div *ngIf="rfidLogs().length === 0" class="no-data">
+        📭 No RFID scan logs in database
+      </div>
+     
+    </div>
+  </div>
+</div>

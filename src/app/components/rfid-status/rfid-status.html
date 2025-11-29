@@ -1,1 +1,21 @@
-<p>rfid-status works!</p>
+<div class="status-card">
+  <h2 class="card-title">RFID</h2>
+  
+  <div class="status-list">
+    <div *ngFor="let status of rfidStatus()" class="status-item">
+      <div class="status-info">
+        <div class="rfid-tag">{{ status.rfid_tag }}</div>
+      </div>
+      
+      <div class="status-indicator">
+        <div class="toggle-switch toggle-display-only">
+          <div class="toggle-slider" [class.active]="status.is_active === 1 || status.is_active === '1' || status.status === 'ACTIVE'"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="!isLoading() && rfidStatus().length === 0" class="no-data">
+      📭 No registered RFID users in database
+    </div>
+  </div>
+</div>

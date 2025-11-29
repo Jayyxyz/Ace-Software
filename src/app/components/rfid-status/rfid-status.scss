@@ -1,0 +1,145 @@
+$primary-color: #2c3e50;
+$success-color: #27ae60;
+$unsuccessful-color: #e74c3c;
+$light-gray: #f8f9fa;
+$medium-gray: #e0e0e0;
+$white: #ffffff;
+
+.status-card {
+  background: $white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: fixed;
+  
+  .card-title {
+    margin: 0 0 20px 0;
+    color: $primary-color;
+    font-size: 1.5rem;
+  }
+  
+  .status-list {
+    max-height: 400px;
+    overflow-y: auto;
+    
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid $medium-gray;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: $light-gray;
+      
+      .status-info {
+        flex: 1;
+        
+        .rfid-tag {
+          font-weight: bold;
+          color: $primary-color;
+          font-size: 1.1rem;
+          font-family: monospace;
+          word-break: break-all;
+        }
+      }
+      
+      .status-indicator {
+        .toggle-switch {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: default;
+          
+          .toggle-slider {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: $unsuccessful-color;
+            border-radius: 34px;
+            transition: all 0.3s ease;
+            cursor: default;
+            pointer-events: none;
+            
+            &::before {
+              content: "";
+              position: absolute;
+              height: 20px;
+              width: 20px;
+              left: 2px;
+              bottom: 2px;
+              background: $white;
+              border-radius: 50%;
+              transition: all 0.3s ease;
+            }
+            
+            &.active {
+              background: $success-color;
+              
+              &::before {
+                transform: translateX(26px);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .no-data {
+      text-align: center;
+      color: #666;
+      padding: 40px 20px;
+      font-size: 1rem;
+      
+      &::before {
+        content: "📭";
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+
+
+// Small Mobile Responsive
+@media (max-width: 400px) {
+  .status-card {
+    padding: 10px;
+    
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .status-list {
+      .status-item {
+        padding: 12px;
+        
+        .status-info {
+          .rfid-tag {
+            font-size: 1rem;
+          }
+        }
+        
+        .status-indicator {
+          .toggle-switch {
+            .toggle-slider {
+              width: 45px;
+              height: 22px;
+              
+              &::before {
+                height: 18px;
+                width: 18px;
+              }
+              
+              &.active::before {
+                transform: translateX(23px);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

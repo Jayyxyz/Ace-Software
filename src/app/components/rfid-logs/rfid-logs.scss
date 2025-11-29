@@ -1,0 +1,370 @@
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$light-gray: #f8f9fa;
+$medium-gray: #e0e0e0;
+$dark-gray: #343a40;
+$white: #ffffff;
+$black: #000;
+
+
+.logs-card {
+  background: $white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  
+  .logs-table {
+    border: 1px solid $medium-gray;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    
+    .table-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      background: $dark-gray;
+      color: $white;
+      font-weight: bold;
+      padding: 15px;
+      gap: 10px;
+      text-align: center;
+      
+      
+    }
+    
+    .table-body {
+      max-height: 500px;
+      overflow-y: auto;
+      width: 100%;
+      
+      .loading-row {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        grid-column: 1 / -1;
+        font-size: 1rem;
+      }
+      
+      .table-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+        padding: 12px 15px;
+        border-bottom: 1px solid $medium-gray;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &:nth-child(even) {
+          background: $light-gray;
+        }
+        
+        .col-rfid {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 92px;
+          padding: 8px;
+          
+          .rfid-number {
+            background: $primary-color;
+            color: $white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            flex-shrink: 0;
+          }
+          
+          .rfid-value {
+            font-family: monospace;
+            font-weight: bold;
+            color: $secondary-color;
+            word-break: break-all;
+            text-align: center;
+          }
+        }
+        
+        .col-status {
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .status-badge {
+          padding: 6px 12px;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          display: inline-block;
+          text-align: center;
+          min-width: 80px;
+          
+          &.active {
+            background: #d4edda;
+            color: #155724;
+          }
+          
+          &.inactive {
+            background: #f8d7da;
+            color: #721c24;
+          }
+          
+          &.notfound {
+            background: #fff3cd;
+            color: #856404;
+          }
+        }
+        
+        .col-timestamp {
+          color: $dark-gray;
+          font-size: 0.9rem;
+          padding: 8px;
+          word-break: break-word;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      
+      .no-data {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        grid-column: 1 / -1;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .logs-card {
+    padding: 15px;
+    
+    .logs-table {
+      .table-header,
+      .table-row {
+        grid-template-columns: 1.5fr 1fr 1.5fr;
+        gap: 8px;
+      }
+      
+      .table-header {
+        padding: 12px;
+        
+        .header-cell {
+          font-size: 0.9rem;
+          padding: 6px;
+        }
+      }
+      
+      .table-row {
+        padding: 10px 12px;
+        
+        .col-rfid,
+        .col-status,
+        .col-timestamp {
+          font-size: 0.85rem;
+          padding: 6px;
+        }
+        
+        .col-rfid {
+          .rfid-number {
+            width: 22px;
+            height: 22px;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 600px) {
+  .logs-card {
+    padding: 12px;
+    margin: 10px;
+    
+    .logs-table {
+      .table-header {
+        display: none;
+      }
+      
+      .table-body {
+        .table-row {
+          display: flex;
+          flex-direction: column;
+          padding: 15px;
+          gap: 12px;
+          border-bottom: 1px solid $medium-gray;
+          text-align: center;
+          
+          &:last-child {
+            border-bottom: 1px solid $medium-gray;
+          }
+          
+          .col-rfid,
+          .col-status,
+          .col-timestamp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            text-align: center;
+            
+            &::before {
+              content: attr(data-label);
+              font-weight: bold;
+              color: $black;
+              margin-bottom: 8px;
+              font-size: 15px;
+              text-align: center;
+              width: 100%;
+            }
+          }
+          
+          .col-rfid {
+            gap: 8px;
+            
+            .rfid-number {
+              margin: 0 auto;
+            }
+            
+            .rfid-value {
+              text-align: center;
+              width: 100%;
+            }
+          }
+          
+          .col-status {
+            .status-badge {
+              margin: 0 auto;
+            }
+          }
+          
+          .col-timestamp {
+            color: $dark-gray;
+            word-break: break-word;
+            text-align: center;
+          }
+        }
+        
+        .loading-row,
+        .no-data {
+          padding: 30px 15px;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+// Small Mobile Responsive
+@media (max-width: 480px) {
+  .logs-card {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    
+    .logs-table {
+      border-radius: 6px;
+      
+      .table-body {
+        .table-row {
+          padding: 12px 10px;
+          gap: 10px;
+          
+          .col-rfid,
+          .col-status,
+          .col-timestamp {
+            font-size: 0.85rem;
+            
+            &::before {
+              margin-bottom: 6px;
+              font-size: 0.8rem;
+            }
+          }
+          
+          .col-rfid {
+            .rfid-number {
+              width: 20px;
+              height: 20px;
+              font-size: 0.7rem;
+            }
+            
+            .rfid-value {
+              font-size: 0.85rem;
+            }
+          }
+          
+          .col-status {
+            .status-badge {
+              min-width: 70px;
+              font-size: 0.75rem;
+            }
+          }
+        }
+        
+        .loading-row,
+        .no-data {
+          padding: 25px 10px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+// Large desktop screens
+@media (min-width: 1440px) {
+  .logs-card {
+    padding: 25px;
+    
+    .logs-table {
+      .table-header {
+        padding: 18px;
+        font-size: 1.1rem;
+      }
+      
+      .table-row {
+        padding: 15px 18px;
+        
+        .col-rfid,
+        .col-status,
+        .col-timestamp {
+          font-size: 1rem;
+        }
+        
+        .col-rfid {
+          .rfid-number {
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
+          }
+        }
+        
+        .status-badge {
+          font-size: 0.85rem;
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+}

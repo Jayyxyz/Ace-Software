@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RfidLogs } from './rfid-logs';
+import { RfidLogsComponent } from './rfid-logs'; 
 
 describe('RfidLogs', () => {
-  let component: RfidLogs;
-  let fixture: ComponentFixture<RfidLogs>;
+  let component: RfidLogsComponent;
+  let fixture: ComponentFixture<RfidLogsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RfidLogs]
+      imports: [RfidLogsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RfidLogs);
+    fixture = TestBed.createComponent(RfidLogsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
